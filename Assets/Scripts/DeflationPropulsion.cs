@@ -6,8 +6,9 @@ using System.Collections;
 public class DeflationPropulsion : MonoBehaviour
 {
     public float ForceAcclerationFactor = 1.0f;
-
+    public float ShootFactor = 10.0f;
     public Transform modelTransform;
+
 
     InflateFish inflator;
     Rigidbody rb;
@@ -46,9 +47,20 @@ public class DeflationPropulsion : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(inflator.InflationVelocity < 0)
+        if (actualDirection == Vector2.zero)
+            return;
+
+        if(inflator.Inflation > 0 && inflator.IsFullyReleased())
         {
-            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * inflator.InflationVelocity * ForceAcclerationFactor, ForceMode.Acceleration);
+            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * inflator.Inflation * -ShootFactor, ForceMode.Impulse);
+            inflator.FullyDeflate();
+        }
+        else
+        {
+            if (inflator.InflationVelocity < 0)
+            {
+                rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * -ForceAcclerationFactor, ForceMode.Acceleration);
+            }
         }
     }
 }
