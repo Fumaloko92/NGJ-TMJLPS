@@ -12,7 +12,7 @@ public class InflateScaler : MonoBehaviour
     {
         if (ObjectToScale != null && MaxInflation > 0)
         {
-            float Scale = MinInflation + Mathf.Clamp(1.0f - MinInflation, 0.0f, 1.0f) * (inflation / MaxInflation);
+            float Scale = MinInflation + (MaxInflation - MinInflation) * inflation;
 
             ObjectToScale.localScale = new Vector3(Scale, Scale, Scale);
         }
