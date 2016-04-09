@@ -53,12 +53,9 @@ public class DeflationPropulsion : MonoBehaviour
         if (!inflator.CanInflate())
         {
             emitter.enabled = true;
-            emitter.SetBursts(new ParticleSystem.Burst[0]);
         } else
         {
             emitter.enabled = false;
-            emitter.SetBursts(new ParticleSystem.Burst[0]);
-
         }
 
         actualDirection = new Vector2(x, y);
