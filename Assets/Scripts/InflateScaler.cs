@@ -14,7 +14,7 @@ public class InflateScaler : MonoBehaviour
     {
         if (ObjectToScale != null && MaxInflation > 0)
         {
-            animator.SetFloat("MorphArgument", inflation * 1);
+            animator.SetFloat("MorphAmount", inflation * 1);
             skinnedMesh.SetBlendShapeWeight(0, inflation * 100f);
 
 
