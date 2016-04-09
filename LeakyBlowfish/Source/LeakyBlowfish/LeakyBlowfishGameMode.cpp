@@ -2,10 +2,10 @@
 
 #include "LeakyBlowfish.h"
 #include "LeakyBlowfishGameMode.h"
-#include "LeakyBlowfishBall.h"
+#include "Fish.h"
 
 ALeakyBlowfishGameMode::ALeakyBlowfishGameMode()
 {
 	// set default pawn class to our ball
-	DefaultPawnClass = ALeakyBlowfishBall::StaticClass();
+	DefaultPawnClass = AFish::StaticClass();
 }
