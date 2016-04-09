@@ -17,6 +17,7 @@ public class DeflationPropulsion : MonoBehaviour
     Quaternion currentLook;
     Vector2 actualDirection;
     PlayerController controller;
+    public ParticleSystem blowParticles;
 
     void Start()
     {
@@ -46,7 +47,20 @@ public class DeflationPropulsion : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(new Vector3(0, y, -x), Vector3.up);
             currentLook = Quaternion.Slerp(currentLook, q, 6f * Time.deltaTime);
         }
-        
+
+        var emitter = blowParticles.emission;
+
+        if (!inflator.CanInflate())
+        {
+            emitter.enabled = true;
+            emitter.SetBursts(new ParticleSystem.Burst[0]);
+        } else
+        {
+            emitter.enabled = false;
+            emitter.SetBursts(new ParticleSystem.Burst[0]);
+
+        }
+
         actualDirection = new Vector2(x, y);
         modelTransform.rotation = currentLook;
     }
