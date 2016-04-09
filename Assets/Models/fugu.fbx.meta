@@ -39,6 +39,7 @@ ModelImporter:
     7400000: fugu|bigIdle
     7400002: fugu|normIdle
     7400004: fugu|normTurn
+    7400006: fugu|shot
     9500000: //RootNode
     13700000: fuguFish
   materials:
@@ -183,6 +184,64 @@ ModelImporter:
       takeName: fugu|normTurn
       firstFrame: 0
       lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: fugu
+        weight: 1
+      - path: fugu/root
+        weight: 1
+      - path: fugu/root/head
+        weight: 1
+      - path: fugu/root/head/mouthLow
+        weight: 1
+      - path: fugu/root/head/mouthUp
+        weight: 1
+      - path: fugu/root/spine01
+        weight: 1
+      - path: fugu/root/spine01/fin01.L
+        weight: 1
+      - path: fugu/root/spine01/fin01.L/fin02.L
+        weight: 1
+      - path: fugu/root/spine01/fin01.R
+        weight: 1
+      - path: fugu/root/spine01/fin01.R/fin02.R
+        weight: 1
+      - path: fugu/root/spine01/spine02
+        weight: 1
+      - path: fugu/root/spine01/spine02/spine03
+        weight: 1
+      - path: fugu/root/spine01/spine02/spine03/spine04
+        weight: 1
+      - path: fuguFish
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: fugu|shot
+      takeName: fugu|shot
+      firstFrame: 0
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
