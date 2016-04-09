@@ -56,7 +56,7 @@ public class BaloonSimple : MonoBehaviour {
             if(_animController.GetFloat("ScaleFactor")<1f)
                 _animController.SetFloat("ScaleFactor", _animController.GetFloat("ScaleFactor") + Time.deltaTime/ secondsForBreathing);
         }
-        if (Input.GetAxis(blowAirKeyName)==1&&_storedAir > 0)
+        if (Input.GetAxis(breathAirKeyName) !=1&&_storedAir > 0)
         {
             if (_storedAir >0)
                 _storedAir -= Time.deltaTime / secondsForBreathing;
@@ -74,7 +74,7 @@ public class BaloonSimple : MonoBehaviour {
     {
         _body.AddForce(new Vector3(0, 2 * _waterSurfaceHeight / transform.position.y));
        
-        if (Input.GetAxis(blowAirKeyName) == 1 && _storedAir > 0)
+        if (Input.GetAxis(breathAirKeyName) != 1 && _storedAir > 0)
         {
             Vector3 position = centerTransformRef.position - mouthTransformRef.position;
             _body.AddForce(position * powerMultiplier, ForceMode.Force);
