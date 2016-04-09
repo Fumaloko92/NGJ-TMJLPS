@@ -8,7 +8,10 @@ public class InflateFish : MonoBehaviour
     public float Inflation;
     public float InflationVelocity;
 
+    public float InflationVelocityThreshold = 2;
+
     private InflateScaler Scaler;
+    private Rigidbody Rigidbody;
 
     private float inputValue;
 
@@ -16,6 +19,7 @@ public class InflateFish : MonoBehaviour
     void Start()
     {
         Scaler = GetComponent<InflateScaler>();
+        Rigidbody = GetComponent<Rigidbody>();
     }
 
     public void SetInput( float input)
@@ -23,6 +27,21 @@ public class InflateFish : MonoBehaviour
         this.inputValue = input;
     }
 
+    public bool IsFullyReleased()
+    {
+        return inputValue <= 0.025f;
+    }
+
+    public void FullyDeflate()
+    {
+        Inflation = 0;
+        InflationVelocity = 0;
+    }
+    
+    public bool CanInflate()
+    {
+        return Rigidbody.velocity.magnitude < InflationVelocityThreshold;
+    }
 
     // Update is called once per frame
     void Update()
@@ -31,13 +50,21 @@ public class InflateFish : MonoBehaviour
 
         const float threshold = 0.95f;
 
-        if (inputValue >= threshold)
+        if (inputValue >= threshold && CanInflate())
         {
             Inflate = 1.0f;
+            if(InflationVelocity < 0)
+            {
+                InflationVelocity = 0;
+            }
         }
         else
         {
-            Inflate = -(1.0f - (inputValue / threshold)) * 0.5f;
+            Inflate = -0.1f;
+            if(InflationVelocity > 0)
+            {
+                InflationVelocity = 0;
+            }
         }
 
         Inflation += InflationVelocity * Time.deltaTime;
