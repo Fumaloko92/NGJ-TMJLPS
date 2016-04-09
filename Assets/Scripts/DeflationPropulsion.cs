@@ -32,7 +32,12 @@ public class DeflationPropulsion : MonoBehaviour
         var x = Input.GetAxis("Horizontal" + controller.PlayerId);
         var y = Input.GetAxis("Vertical" + controller.PlayerId);
 
-        if(x == 0 && y == 0)
+        if (!inflator.CanInflate())
+        {
+            Quaternion q = Quaternion.LookRotation(-rb.velocity.normalized, Vector3.up);
+            currentLook = Quaternion.Slerp(currentLook, q, 6f * Time.deltaTime);
+        }
+        else if (x == 0 && y == 0)
         {
             currentLook = Quaternion.Slerp(currentLook, lookForward, 6f * Time.deltaTime);
         }
@@ -41,6 +46,7 @@ public class DeflationPropulsion : MonoBehaviour
             Quaternion q = Quaternion.LookRotation(new Vector3(0, y, -x), Vector3.up);
             currentLook = Quaternion.Slerp(currentLook, q, 6f * Time.deltaTime);
         }
+        
         actualDirection = new Vector2(x, y).normalized;
         modelTransform.rotation = currentLook;
     }
@@ -55,12 +61,9 @@ public class DeflationPropulsion : MonoBehaviour
             rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * inflator.Inflation * -ShootFactor, ForceMode.Impulse);
             inflator.FullyDeflate();
         }
-        else
+        else if(inflator.InflationVelocity < 0)
         {
-            if (inflator.InflationVelocity < 0)
-            {
-                rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * -ForceAcclerationFactor, ForceMode.Acceleration);
-            }
+            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * -ForceAcclerationFactor, ForceMode.Acceleration);
         }
     }
 }

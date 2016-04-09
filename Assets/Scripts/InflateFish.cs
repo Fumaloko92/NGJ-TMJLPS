@@ -37,6 +37,11 @@ public class InflateFish : MonoBehaviour
         Inflation = 0;
         InflationVelocity = 0;
     }
+    
+    public bool CanInflate()
+    {
+        return Rigidbody.velocity.magnitude < InflationVelocityThreshold;
+    }
 
     // Update is called once per frame
     void Update()
@@ -45,13 +50,21 @@ public class InflateFish : MonoBehaviour
 
         const float threshold = 0.95f;
 
-        if (inputValue >= threshold && Rigidbody.velocity.magnitude < InflationVelocityThreshold)
+        if (inputValue >= threshold && CanInflate())
         {
             Inflate = 1.0f;
+            if(InflationVelocity < 0)
+            {
+                InflationVelocity = 0;
+            }
         }
         else
         {
-            Inflate = -0.25f;
+            Inflate = -0.1f;
+            if(InflationVelocity > 0)
+            {
+                InflationVelocity = 0;
+            }
         }
 
         Inflation += InflationVelocity * Time.deltaTime;
