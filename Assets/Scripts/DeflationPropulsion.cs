@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(InflateFish))]
+[RequireComponent(typeof(PlayerController))]
 public class DeflationPropulsion : MonoBehaviour
 {
     public float ForceAcclerationFactor = 1.0f;
@@ -14,9 +15,11 @@ public class DeflationPropulsion : MonoBehaviour
     Quaternion lookForward;
     Quaternion currentLook;
     Vector2 actualDirection;
+    PlayerController controller;
 
     void Start()
     {
+        controller = GetComponent<PlayerController>();
         inflator = GetComponent<InflateFish>();
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
@@ -25,8 +28,8 @@ public class DeflationPropulsion : MonoBehaviour
 
     void Update()
     {
-        var x = Input.GetAxis("Horizontal");
-        var y = Input.GetAxis("Vertical");
+        var x = Input.GetAxis("Horizontal" + controller.PlayerId);
+        var y = Input.GetAxis("Vertical" + controller.PlayerId);
 
         if(x == 0 && y == 0)
         {
