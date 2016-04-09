@@ -47,23 +47,21 @@ public class DeflationPropulsion : MonoBehaviour
             currentLook = Quaternion.Slerp(currentLook, q, 6f * Time.deltaTime);
         }
         
-        actualDirection = new Vector2(x, y).normalized;
+        actualDirection = new Vector2(x, y);
         modelTransform.rotation = currentLook;
     }
 
     void FixedUpdate()
     {
-        if (actualDirection == Vector2.zero)
-            return;
-
-        if(inflator.Inflation > 0 && inflator.IsFullyReleased())
+        var normal = actualDirection.normalized;
+        if(inflator.Inflation > 0 && inflator.IsFullyReleased() && actualDirection.magnitude > 0.25f)
         {
-            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * inflator.Inflation * -ShootFactor, ForceMode.Impulse);
+            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x).normalized * inflator.Inflation * -ShootFactor, ForceMode.Impulse);
             inflator.FullyDeflate();
         }
-        else if(inflator.InflationVelocity < 0)
+        else if(inflator.InflationVelocity < 0 && actualDirection.magnitude > 0.25f)
         {
-            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x) * -ForceAcclerationFactor, ForceMode.Acceleration);
+            rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x).normalized * -ForceAcclerationFactor, ForceMode.Acceleration);
         }
     }
 }
