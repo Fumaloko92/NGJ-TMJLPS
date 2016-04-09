@@ -18,6 +18,7 @@ public class DeflationPropulsion : MonoBehaviour
     Vector2 actualDirection;
     PlayerController controller;
     public ParticleSystem blowParticles;
+    public Animator animator;
 
     void Start()
     {
@@ -52,9 +53,12 @@ public class DeflationPropulsion : MonoBehaviour
 
         if (!inflator.CanInflate())
         {
+            animator.SetBool("isShot", true);
             emitter.enabled = true;
-        } else
+        }
+        else
         {
+            animator.SetBool("isShot", false);
             emitter.enabled = false;
         }
 
