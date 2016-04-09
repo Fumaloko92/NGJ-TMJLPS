@@ -22,7 +22,9 @@ public class BaloonSimple : MonoBehaviour {
     [SerializeField]
     private float powerMultiplier;
     [SerializeField]
-    private float rotationMultiplier;
+    private float rotationMultiplierSmall;
+    [SerializeField]
+    private float rotationMultiplierBig;
     [SerializeField]
     private GameObject waterSurface;
     [SerializeField]
@@ -62,21 +64,22 @@ public class BaloonSimple : MonoBehaviour {
                 _animController.SetFloat("ScaleFactor", _animController.GetFloat("ScaleFactor") - Time.deltaTime / secondsForBreathing);
         }
 
+        float h = Input.GetAxis(horizontalAxisName);
+        float t = h;
+       transform.Rotate(new Vector3(t * Time.deltaTime * Mathf.Lerp(rotationMultiplierSmall,rotationMultiplierBig,_storedAir), 0, 0));
 
-       
 
     }
     void FixedUpdate()
     {
         _body.AddForce(new Vector3(0, 2 * _waterSurfaceHeight / transform.position.y));
-        float h = Input.GetAxis(horizontalAxisName);
+       
         if (Input.GetAxis(blowAirKeyName) == 1 && _storedAir > 0)
         {
             Vector3 position = centerTransformRef.position - mouthTransformRef.position;
-            _body.AddForce(position * powerMultiplier, ForceMode.Acceleration);
+            _body.AddForce(position * powerMultiplier, ForceMode.Force);
         }
-            float t = h;
-        _body.AddTorque(new Vector3(t * Time.deltaTime * rotationMultiplier, 0, 0));
+       
     }
 
 }
