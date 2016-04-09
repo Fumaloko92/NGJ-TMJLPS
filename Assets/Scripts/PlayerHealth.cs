@@ -8,18 +8,18 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private Material damagingMaterial;
 
-    private float _blinkTimer = 0.5f;
+    private float _blinkTimer = 0.2f;
     private float _timer;
     private float _timer1;
 
     private Material _startingMat;
-    private MeshRenderer _rendererRef;
+    private SkinnedMeshRenderer _rendererRef;
     private bool _blink;
     private float _health;
 
     void Awake()
     {
-        _rendererRef = GetComponent<MeshRenderer>();
+        _rendererRef = GetComponentInChildren<SkinnedMeshRenderer>();
         _startingMat = _rendererRef.material;
         _health = startingHealth;
         _timer = 0;
@@ -29,6 +29,7 @@ public class PlayerHealth : MonoBehaviour {
     public void dealDamage(float dmg)
     {
         _health -= dmg;
+        blinkDamagingMaterial();
     }
 
     private void blinkDamagingMaterial()
@@ -38,7 +39,7 @@ public class PlayerHealth : MonoBehaviour {
 
     private bool isLowHealth()
     {
-        return _health <= startingHealth * 5 / 100;
+        return _health <= startingHealth * 5 / 100&&_health>=0;
     }
 
     private bool isDead()

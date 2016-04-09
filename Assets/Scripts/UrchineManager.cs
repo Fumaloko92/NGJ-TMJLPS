@@ -24,7 +24,7 @@ public class UrchineManager : MonoBehaviour {
         if (col.gameObject.tag == "Player")
         {
             col.gameObject.GetComponent<PlayerHealth>().dealDamage(damage);
-            col.gameObject.GetComponent<InflateFish>().FullyDeflate();
+            //col.gameObject.GetComponent<InflateFish>().FullyDeflate();
         }
     }
 
@@ -39,7 +39,7 @@ public class UrchineManager : MonoBehaviour {
 
         Vector3 offset = transform.localScale;
         transform.localScale=Vector3.Lerp(_initialScale - _offset, _initialScale + _offset, _index);
-        transform.position = Vector3.Lerp(_initalPosition, _initalPosition + Vector3.up/4, _index);
+        //transform.position = Vector3.Lerp(_initalPosition, _initalPosition + Vector3.up/8, _index);
 
     }
 }
