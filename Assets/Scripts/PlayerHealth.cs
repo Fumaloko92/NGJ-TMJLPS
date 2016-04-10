@@ -49,7 +49,13 @@ public class PlayerHealth : MonoBehaviour {
 
     void Update()
     {
-       
+        if (isDead())
+        {
+            _rendererRef.material = _startingMat;
+            return;
+        }
+
+
         if (isLowHealth())
         {
             _rendererRef.material = _startingMat;
