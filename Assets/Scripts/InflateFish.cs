@@ -15,11 +15,19 @@ public class InflateFish : MonoBehaviour
 
     private float inputValue;
 
+    private bool canInflate;
+
     // Use this for initialization
     void Start()
     {
         Scaler = GetComponent<InflateScaler>();
         Rigidbody = GetComponent<Rigidbody>();
+        canInflate = true;
+    }
+
+    public void setInflation(bool val)
+    {
+        canInflate = val;
     }
 
     public void SetInput( float input)
@@ -40,7 +48,7 @@ public class InflateFish : MonoBehaviour
     
     public bool CanInflate()
     {
-        return Rigidbody.velocity.magnitude < InflationVelocityThreshold;
+        return canInflate&&Rigidbody.velocity.magnitude < InflationVelocityThreshold;
     }
 
     // Update is called once per frame

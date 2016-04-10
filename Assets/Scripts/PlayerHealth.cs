@@ -42,15 +42,14 @@ public class PlayerHealth : MonoBehaviour {
         return _health <= startingHealth * 5 / 100&&_health>=0;
     }
 
-    private bool isDead()
+    public bool isDead()
     {
         return _health <= 0;
     }
 
     void Update()
     {
-        if (isDead())
-            Debug.Log("I AM DEAD, I WANT MY BELLY UP");
+       
         if (isLowHealth())
         {
             _rendererRef.material = _startingMat;
