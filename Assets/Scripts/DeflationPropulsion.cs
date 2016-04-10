@@ -19,7 +19,7 @@ public class DeflationPropulsion : MonoBehaviour
     PlayerController controller;
     public ParticleSystem blowParticles;
     public Animator animator;
-
+    PlayerHealth health;
     void Start()
     {
         controller = GetComponent<PlayerController>();
@@ -27,6 +27,7 @@ public class DeflationPropulsion : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
         lookForward = Quaternion.LookRotation(Vector3.left, Vector3.up);
+        health = GetComponent<PlayerHealth>();
     }
 
     void Update()
@@ -34,7 +35,12 @@ public class DeflationPropulsion : MonoBehaviour
         var x = Input.GetAxis("Horizontal" + controller.PlayerId);
         var y = Input.GetAxis("Vertical" + controller.PlayerId);
 
-        if (!inflator.CanInflate())
+        if(health.isDead())
+        {
+            var deadLook = Quaternion.LookRotation(Vector3.left, Vector3.down);
+            currentLook = Quaternion.Slerp(currentLook, deadLook, Time.deltaTime);
+        }
+        else if (!inflator.CanInflate())
         {
             Quaternion q = Quaternion.LookRotation(-rb.velocity.normalized, Vector3.up);
             currentLook = Quaternion.Slerp(currentLook, q, 6f * Time.deltaTime);
