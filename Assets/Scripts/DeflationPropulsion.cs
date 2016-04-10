@@ -64,15 +64,19 @@ public class DeflationPropulsion : MonoBehaviour
         {
             animator.SetBool("isShot", true);
             emitter.enabled = true;
+            _audioSource.clip = _audioManager.getRandomBubbleSound();
+            _audioSource.Play();
         }
         else
         {
             animator.SetBool("isShot", false);
             emitter.enabled = false;
+            _audioSource.Stop();
         }
 
         actualDirection = new Vector2(x, y);
         modelTransform.rotation = currentLook;
+        
     }
 
     void FixedUpdate()
@@ -80,8 +84,7 @@ public class DeflationPropulsion : MonoBehaviour
         var normal = actualDirection.normalized;
         if(inflator.Inflation > 0 && inflator.IsFullyReleased() && actualDirection.magnitude > 0.25f)
         {
-            _audioSource.clip = _audioManager.getRandomBubbleSound();
-            _audioSource.Play();
+           
             rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x).normalized * inflator.Inflation * -ShootFactor, ForceMode.Impulse);
             inflator.FullyDeflate();
         }
