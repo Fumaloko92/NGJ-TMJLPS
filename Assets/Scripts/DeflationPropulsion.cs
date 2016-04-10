@@ -9,7 +9,8 @@ public class DeflationPropulsion : MonoBehaviour
     public float ShootFactor = 10.0f;
     public Transform modelTransform;
 
-
+    private AudioManager _audioManager;
+    private AudioSource _audioSource;
     InflateFish inflator;
     Rigidbody rb;
     Transform tf;
@@ -27,6 +28,8 @@ public class DeflationPropulsion : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         tf = GetComponent<Transform>();
         lookForward = Quaternion.LookRotation(Vector3.left, Vector3.up);
+        _audioManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -71,6 +74,8 @@ public class DeflationPropulsion : MonoBehaviour
         var normal = actualDirection.normalized;
         if(inflator.Inflation > 0 && inflator.IsFullyReleased() && actualDirection.magnitude > 0.25f)
         {
+            _audioSource.clip = _audioManager.getRandomBubbleSound();
+            _audioSource.Play();
             rb.AddForce(new Vector3(0, actualDirection.y, -actualDirection.x).normalized * inflator.Inflation * -ShootFactor, ForceMode.Impulse);
             inflator.FullyDeflate();
         }
