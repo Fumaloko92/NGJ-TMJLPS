@@ -4,7 +4,12 @@ using System.Collections;
 public class startingEffectManager : MonoBehaviour {
     [SerializeField]
     private GameObject[] textForEverySecond;
-    
+
+    [SerializeField]
+    private AudioClip[] soundsForEverySecond;
+
+    [SerializeField]
+    private AudioSource player;
     private GameObject[] _players;
     private float _timer;
     private int _index;
@@ -22,8 +27,13 @@ public class startingEffectManager : MonoBehaviour {
         if (_timer > 1 && _index < textForEverySecond.Length)
         {
             if (_index > 0)
+            {
                 textForEverySecond[_index - 1].SetActive(false);
+                player.Stop();
+            }
+            player.clip = soundsForEverySecond[_index];
             textForEverySecond[_index].SetActive(true);
+            player.Play();
             _index++;
             _timer = 0;
 
