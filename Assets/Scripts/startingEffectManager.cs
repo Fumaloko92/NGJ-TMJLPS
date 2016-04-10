@@ -46,7 +46,6 @@ public class startingEffectManager : MonoBehaviour {
         {
             foreach (GameObject p in _players)
                 p.GetComponent<InflateFish>().setInflation(true);
-            
         }
         else
             foreach (GameObject p in _players)
