@@ -39,7 +39,7 @@ public class PlayerHealth : MonoBehaviour {
 
     private bool isLowHealth()
     {
-        return _health <= startingHealth * 5 / 100&&_health>=0;
+        return _health <= startingHealth * 20 / 100&&_health>=0;
     }
 
     public bool isDead()
