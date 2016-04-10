@@ -17,8 +17,13 @@ public class PlayerHealth : MonoBehaviour {
     private bool _blink;
     private float _health;
 
+    public AudioSource source;
+    AudioManager manager;
+
     void Awake()
     {
+        manager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+
         _rendererRef = GetComponentInChildren<SkinnedMeshRenderer>();
         _startingMat = _rendererRef.material;
         _health = startingHealth;
@@ -30,6 +35,12 @@ public class PlayerHealth : MonoBehaviour {
     {
         _health -= dmg;
         blinkDamagingMaterial();
+
+        if (source != null)
+        {
+            source.clip = manager.getRandomCatSound();
+            source.Play();
+        }
     }
 
     private void blinkDamagingMaterial()
