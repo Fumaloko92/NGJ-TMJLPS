@@ -29,7 +29,7 @@ public class CelebrateWinners : MonoBehaviour {
                //Disable inputs
                 deads++;
             }
-        if(deads==_nPlayers-1)
+        if(deads>=_nPlayers-1)
         {
             if(Input.GetButton("StartButton"))
             {
