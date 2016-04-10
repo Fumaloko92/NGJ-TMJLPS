@@ -11,8 +11,7 @@ public class celebrateWinner : MonoBehaviour {
     void Awake()
     {
         _players = GameObject.FindGameObjectsWithTag("Player");
-        _nPlayers = _players.Length - 1;
-
+        _nPlayers = _players.Length;
     }
 
     void Update()

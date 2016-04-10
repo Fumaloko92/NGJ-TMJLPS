@@ -13,25 +13,34 @@ public class startingEffectManager : MonoBehaviour {
         _index = 0;
         _timer = 0;
         _players = GameObject.FindGameObjectsWithTag("Player");
-        foreach(GameObject p in _players)
-            GetComponentInChildren<InflateFish>().setInflation(false);
+        
     }
     void Update()
     {
-        if(_timer<=1)
+            if (_timer<=1)
         _timer += Time.deltaTime;
-        if(_timer>1&&_index<textForEverySecond.Length)
+        if (_timer > 1 && _index < textForEverySecond.Length)
         {
             if (_index > 0)
                 textForEverySecond[_index - 1].SetActive(false);
             textForEverySecond[_index].SetActive(true);
             _index++;
             _timer = 0;
-           
+
         }
-        if(_index>=textForEverySecond.Length)
+        else
+            if(_timer>1&&_index>=textForEverySecond.Length)
+            textForEverySecond[_index - 1].SetActive(false);
+        
+        if (_index >= textForEverySecond.Length)
+        {
             foreach (GameObject p in _players)
-                GetComponentInChildren<InflateFish>().setInflation(true);
+                p.GetComponent<InflateFish>().setInflation(true);
+            
+        }
+        else
+            foreach (GameObject p in _players)
+                p.GetComponent<InflateFish>().setInflation(false);
     }
     
 }
