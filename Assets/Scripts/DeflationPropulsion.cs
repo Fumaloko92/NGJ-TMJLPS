@@ -21,6 +21,7 @@ public class DeflationPropulsion : MonoBehaviour
     public ParticleSystem blowParticles;
     public Animator animator;
     PlayerHealth health;
+
     void Start()
     {
         controller = GetComponent<PlayerController>();
