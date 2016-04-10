@@ -32,7 +32,10 @@ public class InflateFish : MonoBehaviour
 
     public void SetInput( float input)
     {
-        this.inputValue = input;
+        if (canInflate)
+            this.inputValue = input;
+        else
+            this.inputValue = 0;
     }
 
     public bool IsFullyReleased()
@@ -48,7 +51,7 @@ public class InflateFish : MonoBehaviour
     
     public bool CanInflate()
     {
-        return canInflate&&Rigidbody.velocity.magnitude < InflationVelocityThreshold;
+        return Rigidbody.velocity.magnitude < InflationVelocityThreshold;
     }
 
     // Update is called once per frame
