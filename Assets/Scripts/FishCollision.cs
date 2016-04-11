@@ -8,13 +8,8 @@ public class FishCollision : MonoBehaviour
     private Rigidbody rb;
     private PlayerHealth ph;
 
-    public AudioSource source;
-    public AudioManager manager;
     void Start()
     {
-        manager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
-
-
         ph = GetComponent<PlayerHealth>();
         rb = GetComponent<Rigidbody>();
     }
@@ -34,11 +29,6 @@ public class FishCollision : MonoBehaviour
 
             if(speed > 5)
             {
-                if(source != null)
-                {
-                    source.clip = manager.getRandomCatSound();
-                    source.Play();
-                }
                 col.gameObject.GetComponent<PlayerHealth>().dealDamage(20);
             }
         }
